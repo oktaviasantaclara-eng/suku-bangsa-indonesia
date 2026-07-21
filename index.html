@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sebaran Jumlah Suku di Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#15302A;
+    --forest-2:#1D3E36;
+    --cream:#F6EFDD;
+    --cream-2:#EDE3CA;
+    --terracotta:#D3823F;
+    --terracotta-soft:#E5A870;
+    --teal:#3E8577;
+    --ink:#22271F;
+    --ink-muted:#6B6250;
+    --text-light:#F1EAD8;
+    --text-muted:#A6B5AC;
+    --rule:rgba(211,130,63,0.28);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--forest);
+    color:var(--text-light);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:5.5rem 6vw 4rem;
+    background:
+      radial-gradient(ellipse 900px 500px at 88% -12%, rgba(211,130,63,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 420px at 4% 112%, rgba(62,133,119,0.32), transparent 60%),
+      var(--forest);
+    overflow:hidden;
+    border-bottom:1px solid var(--rule);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(
+        60deg,
+        rgba(211,130,63,0.035) 0px,
+        rgba(211,130,63,0.035) 1px,
+        transparent 1px,
+        transparent 58px
+      ),
+      repeating-linear-gradient(
+        -60deg,
+        rgba(211,130,63,0.03) 0px,
+        rgba(211,130,63,0.03) 1px,
+        transparent 1px,
+        transparent 58px
+      );
+    pointer-events:none;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--terracotta-soft);
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+    margin-bottom:1.6rem;
+    opacity:0;
+    animation:riseIn 0.7s ease forwards;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px; height:1px;
+    background:var(--terracotta-soft);
+    display:inline-block;
+  }
+
+  .hero h1{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:clamp(2.5rem, 5.6vw, 4.6rem);
+    line-height:1.06;
+    letter-spacing:-0.01em;
+    max-width:18ch;
+    opacity:0;
+    animation:riseIn 0.8s ease 0.08s forwards;
+  }
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--terracotta-soft);
+  }
+
+  .hero p.lede{
+    margin-top:1.4rem;
+    max-width:52ch;
+    font-size:1.03rem;
+    line-height:1.65;
+    color:var(--text-muted);
+    opacity:0;
+    animation:riseIn 0.8s ease 0.16s forwards;
+  }
+
+  .hero-stats{
+    margin-top:3.2rem;
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    max-width:760px;
+    opacity:0;
+    animation:riseIn 0.8s ease 0.26s forwards;
+  }
+  .stat{
+    background:var(--forest-2);
+    padding:1.3rem 1.4rem;
+  }
+  .stat .n{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:clamp(1.15rem, 2.2vw, 1.6rem);
+    font-weight:600;
+    color:var(--text-light);
+    display:block;
+  }
+  .stat .n.gold{ color:var(--terracotta-soft); }
+  .stat .l{
+    font-size:0.72rem;
+    color:var(--text-muted);
+    letter-spacing:0.01em;
+    margin-top:0.35rem;
+    display:block;
+    line-height:1.4;
+  }
+
+  /* ===== LIST SECTION ===== */
+  .list-section{
+    background:var(--cream);
+    padding:3.2rem 6vw 5rem;
+  }
+
+  .list-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:0.6rem;
+    max-width:920px;
+    margin:0 auto 1.8rem;
+    padding-bottom:1rem;
+    border-bottom:1px solid rgba(34,39,31,0.15);
+  }
+  .list-head h2{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.5rem;
+    color:var(--ink);
+  }
+  .list-head span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-muted);
+  }
+
+  .ranklist{
+    max-width:920px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .item{
+    display:grid;
+    grid-template-columns: 2.6rem minmax(0,1fr) auto;
+    align-items:center;
+    gap:1.1rem;
+    padding:1.15rem 0.5rem;
+    border-bottom:1px solid rgba(34,39,31,0.1);
+    opacity:0;
+    animation:riseIn 0.6s ease forwards;
+  }
+
+  .badge{
+    width:2.1rem; height:2.1rem;
+    border-radius:50%;
+    background:var(--forest);
+    color:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    font-weight:600;
+    flex-shrink:0;
+  }
+  .item.rank1 .badge{
+    background:var(--terracotta);
+  }
+
+  .item-main{ min-width:0; }
+  .item-name{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--ink);
+    margin-bottom:0.55rem;
+  }
+  .item.rank1 .item-name{ font-size:1.35rem; }
+
+  .bar-track{
+    position:relative;
+    height:9px;
+    background:rgba(34,39,31,0.08);
+    border-radius:1px;
+    overflow:hidden;
+    max-width:420px;
+  }
+  .bar-fill{
+    position:absolute; left:0; top:0; bottom:0;
+    background:linear-gradient(90deg, var(--teal), var(--terracotta));
+    width:0%;
+    border-radius:1px;
+    transition:width 0.8s cubic-bezier(.2,.7,.2,1);
+  }
+  .item.rank1 .bar-fill{
+    background:linear-gradient(90deg, var(--terracotta), var(--terracotta-soft));
+  }
+
+  .item-figures{
+    text-align:right;
+    flex-shrink:0;
+  }
+  .jiwa{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:1rem;
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .item.rank1 .jiwa{ font-size:1.2rem; color:var(--terracotta); }
+  .persen{
+    display:block;
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-size:0.85rem;
+    color:var(--ink-muted);
+    margin-top:0.15rem;
+  }
+
+  .note{
+    max-width:920px;
+    margin:2.4rem auto 0;
+    font-size:0.85rem;
+    line-height:1.6;
+    color:var(--ink-muted);
+    border-left:2px solid var(--terracotta);
+    padding-left:1rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--forest);
+    padding:2.4rem 6vw;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:1rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--text-muted);
+    border-top:1px solid var(--rule);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:640px){
+    .hero{ padding:3.6rem 5vw 2.6rem; }
+    .hero-stats{ grid-template-columns:1fr; }
+    .list-section{ padding:2.4rem 5vw 3.2rem; }
+    .item{
+      grid-template-columns: 2rem 1fr;
+      grid-template-areas:
+        "badge name"
+        "badge bar"
+        "badge fig";
+      row-gap:0.5rem;
+    }
+    .badge{ grid-area:badge; align-self:start; }
+    .item-name{ grid-area:name; margin-bottom:0; }
+    .bar-track{ grid-area:bar; max-width:none; }
+    .item-figures{ grid-area:fig; text-align:left; }
+    footer{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <span class="eyebrow">Badan Pusat Statistik &middot; Sensus Penduduk</span>
+  <h1>Sebaran jumlah <em>suku bangsa</em> di Indonesia</h1>
+  <p class="lede">Indonesia merupakan negara kepulauan dengan keragaman suku bangsa yang luar biasa. Berdasarkan data Badan Pusat Statistik (BPS), terdapat lebih dari 1.300 suku bangsa di seluruh Nusantara.</p>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="n">1.300+</span>
+      <span class="l">Suku bangsa tercatat di Indonesia</span>
+    </div>
+    <div class="stat">
+      <span class="n gold">Jawa</span>
+      <span class="l">Suku terbesar — 40,22% populasi</span>
+    </div>
+    <div class="stat">
+      <span class="n">95,2 juta</span>
+      <span class="l">Jiwa suku Jawa di seluruh Indonesia</span>
+    </div>
+  </div>
+</section>
+
+<section class="list-section">
+  <div class="list-head">
+    <h2>10 suku dengan populasi terbesar</h2>
+    <span>Jumlah jiwa &amp; persentase nasional</span>
+  </div>
+
+  <div class="ranklist" id="ranklist"></div>
+
+  <p class="note">Kategori "Asal Sulawesi" dan "Asal Sumatera Selatan" merujuk pada pengelompokan penduduk berdasarkan wilayah asal sebagaimana dicatat BPS, bukan nama satu suku tunggal.</p>
+</section>
+
+<footer>
+  <span>Sumber data: Badan Pusat Statistik</span>
+  <span>Dibuat untuk referensi publik &middot; bukan dokumen resmi pemerintah</span>
+</footer>
+
+<script>
+  const data = [
+    ["Jawa", 95217022, 40.22],
+    ["Sunda", 36701670, 15.5],
+    ["Batak", 8466969, 3.58],
+    ["Asal Sulawesi", 7634262, 3.22],
+    ["Madura", 7179356, 3.03],
+    ["Betawi", 6807968, 2.88],
+    ["Minangkabau", 6462713, 2.73],
+    ["Bugis", 6359700, 2.69],
+    ["Melayu", 5365399, 2.27],
+    ["Asal Sumatera Selatan", 5199581, 2.16]
+  ];
+
+  const maxPct = Math.max(...data.map(d => d[2]));
+  const list = document.getElementById("ranklist");
+
+  data.forEach((d, i) => {
+    const [name, jiwa, pct] = d;
+    const el = document.createElement("div");
+    el.className = "item" + (i === 0 ? " rank1" : "");
+    el.style.animationDelay = (i * 0.05) + "s";
+
+    const widthPct = Math.max(3, (pct / maxPct) * 100);
+
+    el.innerHTML = `
+      <span class="badge">${i + 1}</span>
+      <div class="item-main">
+        <div class="item-name">${name}</div>
+        <div class="bar-track"><span class="bar-fill" style="width:0%" data-w="${widthPct}"></span></div>
+      </div>
+      <div class="item-figures">
+        <span class="jiwa">${jiwa.toLocaleString("id-ID")} jiwa</span>
+        <span class="persen">${pct.toString().replace(".", ",")}%</span>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll(".bar-fill").forEach(el => {
+        el.style.width = el.dataset.w + "%";
+      });
+    }, 100);
+  });
+</script>
+
+</body>
+</html>
